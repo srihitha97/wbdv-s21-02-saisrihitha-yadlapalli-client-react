@@ -1,9 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {updateCourse} from "../services/CourseService";
+import {updateCourse} from "../services/course-service";
 
 
-export default class CourseRowComponent extends React.Component {
+export default class CourseRow extends React.Component {
 
     state = {
         editing: false,

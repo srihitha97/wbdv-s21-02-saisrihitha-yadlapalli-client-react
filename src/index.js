@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 
-import CourseManagerComponent from "./components/CourseManagerComponent";
+import CourseManager from "./components/course-manager";
 
 
 ReactDOM.render(
-    <CourseManagerComponent/>,
+    <CourseManager/>,
     document.getElementById('root')
 );

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class CourseNavbarComponent extends React.Component {
+export default class CourseNavbar extends React.Component {
 
     state = {
         title: "New Course"
@@ -23,9 +23,8 @@ export default class CourseNavbarComponent extends React.Component {
                                    this.setState({title: newTitle})
                                }}
                                placeholder="New course title"/>
-
                         <div className="input-group-append">
-                            <button className="btn btn-success" onClick={() => this.props.addCourse(this.state.title)} type="button">
+                            <button className="btn btn-success" onClick={() => this.props.addCourse(this.state.title)}  type="button">
                                 +
                             </button>
                         </div>

@@ -1,18 +1,17 @@
 import React from "react";
 import {BrowserRouter, Route} from "react-router-dom";
-import CourseListComponent from "./CourseListComponent";
-import CourseEditorComponent from "./CourseEditorComponent";
-import CourseGridComponent from "./CourseGridComponent";
-import CourseNavbarComponent from "./CourseNavbarComponent";
-import {createCourse, findAllCourses, deleteCourse} from "../services/CourseService";
+import CourseTable from "./course-table";
+import CourseEditor from "./course-editor";
+import CourseGrid from "./course-grid";
+import CourseNavbar from "./course-navbar";
+import {createCourse, findAllCourses, deleteCourse} from "../services/course-service";
 
 
-export default class CourseManagerComponent extends React.Component {
+export default class CourseManager extends React.Component {
 
     state = {
         courses: []
     }
-
 
     componentDidMount() {
         findAllCourses()
@@ -45,8 +44,9 @@ export default class CourseManagerComponent extends React.Component {
         const newCourse = {
             title: newTitle,
             owner: "me",
-            modified: (new Date()).toDateString()
+            modified: (new Date()).toDateString(),
         }
+        document.getElementById('title-fld').value = ""
         createCourse(newCourse)
             .then(actualCourse => this.setState(prevState => ({
                 courses: [
@@ -64,16 +64,16 @@ export default class CourseManagerComponent extends React.Component {
 
                     <div className = "container">
                         <Route path="/" exact>
-                            <CourseListComponent
+                            <CourseTable
                                 courses={this.state.courses}
                                 addCourse={this.addCourse}
                                 deleteCourse={this.deleteCourse}
                                 updateRowCourses={this.updateRowCourses}/>
                         </Route>
-                        <Route path="/edit/:courseId" exact component={CourseEditorComponent}/>
+                        <Route path="/edit/:courseId" exact component={CourseEditor}/>
 
                         <Route path="/grid" exact>
-                            <CourseGridComponent
+                            <CourseGrid
                                 courses={this.state.courses}
                                 addCourse={this.addCourse}
                                 deleteCourse={this.deleteCourse}
@@ -82,7 +82,7 @@ export default class CourseManagerComponent extends React.Component {
                     </div>
 
                     <Route path={["/", "/grid"]} exact>
-                        <CourseNavbarComponent addCourse={this.addCourse}/>
+                        <CourseNavbar addCourse={this.addCourse}/>
                     </Route>
 
                 </BrowserRouter>

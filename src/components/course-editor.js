@@ -1,8 +1,8 @@
 import React from "react";
-import {findCourseById} from "../services/CourseService";
+import {findCourseById} from "../services/course-service";
 import {Link} from "react-router-dom";
 
-export default class CourseEditorComponent extends React.Component{
+export default class CourseEditor extends React.Component{
 
     state = {
         course: {
