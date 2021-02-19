@@ -18,8 +18,9 @@ class CourseListComponent extends React.Component {
                 <th className="d-none d-sm-table-cell">Owned by</th>
                 <th className="d-none d-lg-table-cell">Last Modified</th>
                 <th>
-                    <Link to="/grid"><i className="fa fa-th"/></Link>
+                    <a className="ml-2" href="#"><i className="fa fa-folder"/></a>
                     <a className="ml-2" href="#"><i className="fa fa-sort-alpha-asc"/></a>
+                    <Link to="/grid"><i className="ml-2 fa fa-th"/></Link>
                 </th>
             </tr>
             </thead>

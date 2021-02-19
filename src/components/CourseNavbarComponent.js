@@ -9,27 +9,19 @@ export default class CourseNavbarComponent extends React.Component {
     render() {
         return (
         <div>
-            <nav className="navbar navbar-expand-sm fixed-top">
-                <a className="navbar-brand d-none d-sm-block" href="#">Course Manager</a>
-                <button className="navbar-toggler wbdv-field wbdv-hamburger"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#hidden-dropdown">
-                    <span className="navbar-toggler-icon"/>
-                </button>
-
+            <nav className="justify-content-start navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+                <em class="fa fa-bars fa-3x wbdv-field wbdv-hamburger d-block text-light"></em>
+                <a className="navbar-brand col-2 d-none d-lg-block d-xl-block" href="#">Course Manager</a>
                 <form className="form-inline">
                     <label htmlFor="title-fld" className="wbdv-label wbdv-course-manager"/>
-                    <div className="input-group">
-
+                    <div className="input-group justify-content-start pl-3 col-xs-15 col-md-15 col-sm-15 col-15">
                         <input type="text"
                                id="title-fld"
-                               className="form-control"
+                               className="form-control float right"
                                onChange={(e) => {
                                    const newTitle = e.target.value
                                    this.setState({title: newTitle})
                                }}
-                               // value={this.state.title}
                                placeholder="New course title"/>
 
                         <div className="input-group-append">

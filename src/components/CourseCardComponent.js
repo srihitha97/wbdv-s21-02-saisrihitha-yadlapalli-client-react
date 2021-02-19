@@ -24,13 +24,10 @@ export default class CourseCardComponent extends React.Component {
                         {this.state.course.title}
                     </h5>
                     <p className="card-text">
-                        Course ID: {this.state.course._id}
-                    </p>
-                    <p className="card-text">
                         Modified: {this.state.course.modified}
                     </p>
                     <Link className="btn btn-primary"
-                          to={`/edit/${this.props.course._id}`}>More...</Link>
+                          to={`/edit/${this.props.course._id}`}>More..</Link>
 
                     {
                         !this.state.editing &&
