@@ -44,10 +44,6 @@ export default class CourseRowComponent extends React.Component {
                     onClick={() => this.setState({editing: true})}
                     className="btn btn-link">
                         <i className="fa fa-pencil"/></button>
-                    <button
-                    onClick={() => this.props.deleteCourse(this.props.course)}
-                    className="btn btn-link">
-                        <i className="fa fa-trash"/></button>
                     </div>
                 }
 
@@ -62,6 +58,14 @@ export default class CourseRowComponent extends React.Component {
                                 })
                         }
                         className="btn btn-link"><i className="fa fa-check"/></button>
+                }
+                {
+                    this.state.editing &&
+                    <button
+                        onClick={() =>
+                            this.props.deleteCourse(this.props.course)
+                        }
+                        className="btn btn-link"><i className="fa fa-trash"/></button>
                 }
 
             </td>

@@ -52,7 +52,8 @@ export default class CourseManagerComponent extends React.Component {
                 courses: [
                     ...prevState.courses, actualCourse
                 ]
-            })))
+            })
+            ))
     }
 
 
