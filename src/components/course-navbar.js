@@ -24,7 +24,7 @@ export default class CourseNavbar extends React.Component {
                                }}
                                placeholder="New course title"/>
                         <div className="input-group-append">
-                            <button className="btn btn-success" onClick={() => this.props.addCourse(this.state.title)}  type="button">
+                            <button className="btn btn-success" onClick={() => this.props.addCourse(this.state.title)} type="button">
                                 +
                             </button>
                         </div>

@@ -44,7 +44,7 @@ export default class CourseManager extends React.Component {
         const newCourse = {
             title: newTitle,
             owner: "me",
-            modified: (new Date()).toDateString(),
+            modified: (new Date()).toDateString()
         }
         document.getElementById('title-fld').value = ""
         createCourse(newCourse)
