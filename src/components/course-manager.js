@@ -1,8 +1,8 @@
 import React from "react";
 import {BrowserRouter, Route} from "react-router-dom";
-import CourseTable from "./course-table";
-import CourseEditor from "./course-editor";
-import CourseGrid from "./course-grid";
+import CourseTable from "./course-table/course-table";
+import CourseEditor from "./course-editor/course-editor";
+import CourseGrid from "./course-grid/course-grid";
 import CourseNavbar from "./course-navbar";
 import {createCourse, findAllCourses, deleteCourse} from "../services/course-service";
 
@@ -47,7 +47,6 @@ export default class CourseManager extends React.Component {
             modified: (new Date()).toDateString()
         }
         document.getElementById('title-fld').value = "";
-
         createCourse(newCourse)
             .then(actualCourse => this.setState(prevState => ({
                 courses: [
