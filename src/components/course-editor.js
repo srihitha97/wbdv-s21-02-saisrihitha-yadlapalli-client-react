@@ -22,7 +22,7 @@ export default class CourseEditor extends React.Component{
         return (
             <div>
                 <h2 className="my-3">
-                    <i className="fa fa-home"
+                    <i className="fa fa-arrow-left"
                           onClick={() => window.history.back()}/>
                     {this.state.course.title}
                 </h2>

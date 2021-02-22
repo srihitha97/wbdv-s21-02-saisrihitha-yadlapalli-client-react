@@ -46,7 +46,8 @@ export default class CourseManager extends React.Component {
             owner: "me",
             modified: (new Date()).toDateString()
         }
-        document.getElementById('title-fld').value = ""
+        document.getElementById('title-fld').value = "";
+
         createCourse(newCourse)
             .then(actualCourse => this.setState(prevState => ({
                 courses: [
