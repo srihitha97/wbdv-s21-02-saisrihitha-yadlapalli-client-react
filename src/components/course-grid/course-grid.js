@@ -12,15 +12,16 @@ export default class CourseGrid extends React.Component {
             <div>
 
                 <table className="table wbdv-margin">
-                    <thead className= "wbdv-sticky wbdv-table-headers">
+                    <thead>
                     <tr>
-                        <th className="d-none d-sm-table-cell position-sticky wbdv-table-headers">Recent documents</th>
-                        <th className="d-none d-sm-table-cell position-sticky wbdv-table-headers">Owned by me</th>
-                        <th className="position-sticky wbdv-table-headers">
+                        <th className="d-none d-md-table-cell">Recent documents</th>
+                        <th className="d-none d-md-table-cell">Owned by me</th>
+                        <th className="position-sticky">
                             <a className="ml-2" href="#"><i className="fa fa-folder"/></a>
                             <a className="ml-2" href="#"><i className="fa fa-sort-alpha-asc"/></a>
                             <Link to="/"><i className="pl-2 fa fa-list"/></Link>
                         </th>
+
                     </tr>
                     </thead>
                 </table>
