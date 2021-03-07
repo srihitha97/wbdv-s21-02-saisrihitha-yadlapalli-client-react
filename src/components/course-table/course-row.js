@@ -30,6 +30,7 @@ export default class CourseRow extends React.Component {
                 {
                     !this.state.editing &&
                     <Link to={`/edit/${this.props.course._id}`}>
+                        <i className="fa fa-file"></i>
                         {this.props.course.title}
                     </Link>
                 }
