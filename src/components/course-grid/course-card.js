@@ -1,87 +1,51 @@
-import React from "react";
+import React,{useState} from 'react'
 import {Link} from "react-router-dom";
-import {updateCourse} from "../../services/course-service";
 
-export default class CourseCard extends React.Component {
-
-    state = {
-        course: this.props.course,
-        editing: false
+const CourseCard = ({deleteCourse, course, updateCourse}) => {
+    const [editing, setEditing] = useState(false)
+    const [newTitle, setNewTitle] = useState(course.title)
+    const saveTitle = () => {
+        setEditing(false)
+        const newCourse = {
+            ...course,
+            title: newTitle
+        }
+        updateCourse(newCourse)
+    }
+    const saveDelete = (course) => {
+        setEditing(false)
+        deleteCourse(course)
     }
 
-
-    render() {
-        return (
-            <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-1">
-
-                <div className="card">
-                    <img className="card-img-top"
-                         src="https://picsum.photos/300/200"/>
-
-                    <div className="card-body">
-                        <h5 className="card-title">
-                            {this.state.course.title}
-                        </h5>
-                        <p className="card-text">
-                            Modified: {this.state.course.modified}
-                        </p>
-                        <Link className="btn btn-primary"
-                              to={`/edit/${this.props.course._id}`}>More..</Link>
-
-                        {
-                            !this.state.editing &&
-                            <div>
-                                <button
-                                    onClick={() => this.setState({editing: true})}
-                                    className="btn btn-link">
-                                    <i className="fa fa-pencil"/></button>
-                            </div>
-                        }
-                        {
-                            this.state.editing &&
-                            <button
-                                onClick={() =>
-                                    updateCourse(this.state.course._id, this.state.course)
-                                        .then(status => {
-                                            this.props.updateRowCourses()
-                                            this.setState({editing: false})
-                                        })
-                                }
-                                className="btn btn-link">
-                                <i className="fa fa-check"/>
-                            </button>
-                        }
-                        {
-                            this.state.editing &&
-                            <button
-                                onClick={() => this.props.deleteCourse(this.props.course)}
-                                className="btn btn-link">
-                                <i className="fa fa-trash"/>
-                            </button>
-                        }
-
-                        {
-                            this.state.editing &&
-                            <input className="form-control"
-                                   onChange={(e) => {
-                                       const newTitle = e.target.value
-                                       this.setState(prevState => ({
-                                           course: {...prevState.course, title: newTitle}
-                                       }))
-                                   }
-                                   }
-                                   value={this.state.course.title}/>
-                        }
-                        {
-                        }
-
-                    </div>
-                </div>
-
+    return (<div className="col-sm-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+        <div className="card" >
+            <img src="https://picsum.photos/300/200"
+                 alt="start-small"
+                 border="0"/>
+            <div className="card-body">
+                {
+                    !editing &&
+                    <h5 className="card-title">{course.title}</h5>
+                }
+                {
+                    editing &&
+                    <input
+                        onChange={(event)=> setNewTitle(event.target.value)}
+                        value={newTitle}
+                        className="form-control"/>
+                }
+                <p className="card-text">Some description.</p>
+                <Link to={`/courses/grid/editor/${course._id}`}>
+                    <i className="btn btn-primary">{course.title}</i>
+                </Link>
+                <span className="float-right">
+          {editing && <i className="fas fa-times text-danger" onClick={() => saveDelete(course)}></i>}
+                    {!editing && <i onClick={() => setEditing(true)} className="fas fa-edit"></i>}
+                    {editing && <i onClick={() => saveTitle()}  className="fas fa-check text-success"></i>}
+          </span>
             </div>
-        )
-
-    }
-
-
+        </div>
+    </div>)
 }
+
+export default CourseCard

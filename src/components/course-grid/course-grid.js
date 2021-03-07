@@ -1,45 +1,38 @@
-import React from "react";
-import {Link} from "react-router-dom";
-import CourseCard from "./course-card"
-import '../course-manager.css';
+import React from 'react'
+import CourseCard from "./course-card";
+import {Link, Route} from "react-router-dom";
 
+const CourseGrid = ({courses, deleteCourse,updateCourse}) =>{
+    return (<div>
+            <table className="table">
+                <thead>
+                <tr>
+                    <th className="d-none d-md-table-cell">Recent documents</th>
+                    <th className="d-none d-md-table-cell">Owned by me</th>
+                    <th className="position-sticky">
+                        <a className="ml-2" href="#"><i className="fa fa-folder"/></a>
+                        <a className="ml-2" href="#"><i className="fa fa-sort-alpha-down"/></a>
+                        <Link to="/courses/table"><i className="pl-2 fa fa-list"/></Link>
+                    </th>
 
-export default class CourseGrid extends React.Component {
+                </tr>
+                </thead>
+            </table>
 
-
-    render() {
-        return (
-            <div>
-
-                <table className="table wbdv-margin">
-                    <thead>
-                    <tr>
-                        <th className="d-none d-md-table-cell">Recent documents</th>
-                        <th className="d-none d-md-table-cell">Owned by me</th>
-                        <th className="position-sticky">
-                            <a className="ml-2" href="#"><i className="fa fa-folder"/></a>
-                            <a className="ml-2" href="#"><i className="fa fa-sort-alpha-asc"/></a>
-                            <Link to="/"><i className="pl-2 fa fa-list"/></Link>
-                        </th>
-
-                    </tr>
-                    </thead>
-                </table>
-
-                <div className="card-deck mt-5">
-                    {
-                        this.props.courses.map((course) =>
-                            <CourseCard
-                                course={course}
-                                deleteCourse={this.props.deleteCourse}
-                                updateRowCourses={this.props.updateRowCourses}
-                                key={course._id}/>
-                        )
-                    }
-                </div>
-
+            <div className="row">
+                {
+                    courses.map((course,ndx) =>
+                        <CourseCard
+                            deleteCourse={deleteCourse}
+                            course={course}
+                            key={course._id}
+                            updateCourse={updateCourse}
+                        />
+                    )
+                }
             </div>
-        )
-    }
+        </div>
+    )}
 
-}
+
+export default CourseGrid

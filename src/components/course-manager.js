@@ -1,93 +1,196 @@
-import React from "react";
-import {BrowserRouter, Route} from "react-router-dom";
+import React from 'react'
 import CourseTable from "./course-table/course-table";
-import CourseEditor from "./course-editor/course-editor";
 import CourseGrid from "./course-grid/course-grid";
-import CourseNavbar from "./course-navbar";
-import {createCourse, findAllCourses, deleteCourse} from "../services/course-service";
+import CourseEditor from "./course-editor/course-editor";
+import {Link, Route} from "react-router-dom";
+import courseService, {findAllCourses, deleteCourse,updateCourse} from "../services/course-service";
 
-
-export default class CourseManager extends React.Component {
-
+class CourseManager extends React.Component {
+    newDate = () => {
+        var today = new Date()
+        const date = (new Date()).toDateString()
+        return date
+    }
     state = {
-        courses: []
+        courses : [
+        ],
+        newCourse: {
+            title: "",
+            owner: "me",
+            lastModified:this.newDate()
+        }
+    }
+
+    updateCourse = (course) => {
+        console.log(course)
+        courseService.updateCourse(course._id, course).then(
+            status => this.setState(
+                (prevStatus) => ({
+                    ...prevStatus,
+                    courses: prevStatus.courses.map(c =>
+                        c._id === course._id ? course : c
+                    )
+                })
+            )
+        )
     }
 
     componentDidMount() {
-        findAllCourses()
-            .then(courses => {
-                this.setState({courses: courses})
-            })
+        courseService.findAllCourses().then(actualCourses => this.setState({courses: actualCourses}))
+    }
+
+    onCourseChange = (e) => {
+        const courseToAdd = this.state.newCourse
+        var today = new Date()
+        const date = (new Date()).toDateString()
+        this.setState({
+            newCourse: {
+                title: e.target.value,
+                owner: "me",
+                lastModified:date
+            }
+        })
     }
 
 
-    updateRowCourses = () => {
-        findAllCourses()
-            .then(courses => {
-                this.setState({
-                    courses: courses
-                })
-            })
-    }
-
-
-    deleteCourse = (course) => {
-        deleteCourse(course._id)
-            .then(status => this.setState(prevState => ({
-                    courses: prevState.courses.filter(c => c._id !== course._id)
-                })
-            ))
-    }
-
-
-    addCourse = (newTitle) => {
-        const newCourse = {
-            title: newTitle,
-            owner: "me",
-            modified: (new Date()).toDateString()
+    addCourse = (event) => {
+        let courseToAdd = this.state.newCourse
+        var today = new Date()
+        const date = (new Date()).toDateString()
+        if (this.state.newCourse.title.trim() === "") {
+            courseToAdd = {
+                title: "New Course",
+                owner: "me",
+                lastModified: date
+            }
         }
-        document.getElementById('title-fld').value ="";
-        createCourse(newCourse)
-            .then(actualCourse => this.setState(prevState => ({
+        courseService.createCourse(courseToAdd)
+            .then(course => this.setState(
+                (prevState) => ({
+                    ...prevState,
                     courses: [
-                        ...prevState.courses, actualCourse
+                        ...prevState.courses,
+                        course
                     ]
-                })
-            ))
+                })))
+        this.setState({newCourse: {title: "", owner: "me",
+                lastModified:date}})
+        event.preventDefault()
     }
 
+    deleteCourse = (courseToDelete) => {
+        courseService.deleteCourse(courseToDelete._id)
+            .then(status => {
+                this.setState((prevState) => ({
+                    ...prevState,
+                    courses: prevState.courses.filter
+                    (course => course !== courseToDelete)
+                }))
+            })
+    }
 
     render() {
         return (
             <div>
-                <BrowserRouter>
+                <Route path={"/courses/table"} exact>
+                    <nav className="justify-content-start navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+                        <em className="fa fa-bars fa-3x wbdv-field wbdv-hamburger d-block text-light"></em>
+                        <a className="navbar-brand col-2 d-none d-lg-block d-xl-block" href="#">Course Manager</a>
+                        <form className="form-inline">
+                            <label htmlFor="title-fld" className="wbdv-label wbdv-course-manager"/>
+                            <div className="input-group justify-content-start pl-3 col-xs-15 col-md-15 col-sm-15 col-15">
+                                <input type="text"
+                                       id="wbdv-new-course-title"
+                                       className="form-control float right"
+                                       onChange={this.onCourseChange}
+                                       value={this.state.newCourse.title}
+                                       placeholder="New Course Title"/>
+                                <div className="input-group-append">
+                                    <button className="btn btn-success"
+                                            onClick={this.addCourse}
+                                            type="button">
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div className="row">
 
-                    <div className = "container">
-                        <Route path="/" exact>
-                            <CourseTable
-                                courses={this.state.courses}
-                                addCourse={this.addCourse}
-                                deleteCourse={this.deleteCourse}
-                                updateRowCourses={this.updateRowCourses}/>
-                        </Route>
-                        <Route path="/edit/:courseId" exact component={CourseEditor}/>
+                            <button className="btn btn-success"
+                                    style={{position: "fixed", bottom: 0, right: 0}}
+                                    onClick={this.addCourse}><i className="fa fa-plus-circle"/></button>
+                        </div>
+                    </nav>
+                </Route>
+                <Route path="/courses/grid" exact>
+                    <nav className="justify-content-start navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+                        <em className="fa fa-bars fa-3x wbdv-field wbdv-hamburger d-block text-light"></em>
+                        <a className="navbar-brand col-2 d-none d-lg-block d-xl-block" href="#">Course Manager</a>
+                        <form className="form-inline">
+                            <label htmlFor="title-fld" className="wbdv-label wbdv-course-manager"/>
+                            <div className="input-group justify-content-start pl-3 col-xs-15 col-md-15 col-sm-15 col-15">
+                                <input type="text"
+                                       id="wbdv-new-course-title"
+                                       className="form-control float right"
+                                       onChange={this.onCourseChange}
+                                       value={this.state.newCourse.title}
+                                       placeholder="New Course Title"/>
+                                <div className="input-group-append">
+                                    <button className="btn btn-success"
+                                            onClick={this.addCourse}
+                                            type="button">
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div className="row">
 
-                        <Route path="/grid" exact>
-                            <CourseGrid
-                                courses={this.state.courses}
-                                addCourse={this.addCourse}
-                                deleteCourse={this.deleteCourse}
-                                updateRowCourses={this.updateRowCourses}/>
-                        </Route>
+                            <button className="btn btn-success"
+                                    style={{position: "fixed", bottom: 0, right: 0}}
+                                    onClick={this.addCourse}><i className="fa fa-plus-circle"/></button>
+                        </div>
+                    </nav>
+                </Route>
+
+                <Route path="/courses/table" exact>
+                    <div className="wbdv-react-table">
+                        <CourseTable
+                            updateCourse={this.updateCourse}
+                            deleteCourse={this.deleteCourse}
+                            courses = {this.state.courses}/>
                     </div>
+                </Route>
 
-                    <Route path={["/", "/grid"]} exact>
-                        <CourseNavbar addCourse={this.addCourse}/>
-                    </Route>
 
-                </BrowserRouter>
+                <Route path="/courses/grid" exact>
+                    <div className="wbdv-react-grid">
+                        <br/>
+                        <br/>
+                        <br/>
+                        <CourseGrid
+                            updateCourse={this.updateCourse}
+                            deleteCourse={this.deleteCourse}
+                            courses = {this.state.courses}/>
+                    </div>
+                </Route>
+
+                <Route path={["/courses/:layout/editor/:courseId/:moduleId/:lessonId/:topicId","/courses/:layout/editor/:courseId/:moduleId/:lessonId","/courses/:layout/editor/:courseId/:moduleId","/courses/:layout/editor/:courseId"]}
+                       render={(props) => <CourseEditor {...props}/>}>
+                </Route>
+                <Route path="/courses/table" exact><a href="#">
+                    <i onClick={this.addCourse}
+                       className="btn btn-success"
+                       style={{position: "fixed", bottom: 0, right: 0}}></i>
+                </a></Route>
+                <Route path="/courses/grid" exact><a href="#">
+                    <i onClick={this.addCourse}
+                       className="btn btn-success"
+                       style={{position: "fixed", bottom: 0, right: 0}}></i>
+                </a></Route>
             </div>
         )
-
     }
 }
+
+export default CourseManager
