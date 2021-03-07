@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import {Link} from "react-router-dom";
-import {updateCourse} from "../../services/course-service";
+import {updateCourse} from "../services/course-service";
 
 const CourseRow = (
     {
@@ -47,7 +47,7 @@ const CourseRow = (
             <td className="d-none d-lg-table-cell">{lastModified}</td>
             <td >
           <span className="float-right px-5">
-          {editing && <i className="fas fa-times text-danger"  onClick={() => saveDelete(course)}></i>}
+          {editing && <i className="fas fa-times text-danger" onClick={() => saveDelete(course)}></i>}
               {!editing && <i onClick={() => setEditing(true)} className="fas fa-edit"></i>}
               {editing && <i onClick={() => saveTitle()} className="fas fa-check text-success"></i>}
           </span>
