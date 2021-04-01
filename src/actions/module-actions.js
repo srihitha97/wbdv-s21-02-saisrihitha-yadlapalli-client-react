@@ -37,5 +37,4 @@ const moduleActions = {
   createModule, findModulesForCourse, updateModule, deleteModule
 }
 
-export default moduleActions; 
-//for personal reference
+export default moduleActions;
