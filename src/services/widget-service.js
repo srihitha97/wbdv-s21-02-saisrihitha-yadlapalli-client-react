@@ -1,6 +1,7 @@
 const TOPICS_URL = "https://wbdv-generic-server.herokuapp.com/api/001093295/topics";
 const LESSONS_URL = "https://wbdv-generic-server.herokuapp.com/api/001093295/lessons";
-const WIDGET_URL = "https://tranquil-citadel-68470.herokuapp.com/api";
+//const WIDGET_URL = "https://tranquil-citadel-68470.herokuapp.com/api";
+const WIDGET_URL = "http://localhost:8080/api";
 
 
 export const createWidget = (tid, widget) => fetch(`${WIDGET_URL}/topics/${tid}/widgets`, {
