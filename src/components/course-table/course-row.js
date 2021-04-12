@@ -45,6 +45,11 @@ const CourseRow = (
             </td>
             <td className="d-none d-md-table-cell">{owner}</td>
             <td className="d-none d-lg-table-cell">{lastModified}</td>
+            <td>
+                <Link to={`/courses/${course._id}/quizzes`}>
+                    Quizzes
+                </Link>
+            </td>
             <td >
           <span className="float-right px-5">
           {editing && <i className="fas fa-times text-danger" onClick={() => saveDelete(course)}></i>}

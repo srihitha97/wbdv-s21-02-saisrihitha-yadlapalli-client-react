@@ -20,6 +20,7 @@ export default class CourseTable extends React.Component{
                             <th className="position-sticky wbdv-table-headers">Title</th>
                             <th className="position-sticky wbdv-table-headers d-none d-md-table-cell">Owned by</th>
                             <th className="d-none d-lg-table-cell position-sticky wbdv-table-headers">Last Modified</th>
+                            <th className="d-none d-lg-table-cell position-sticky wbdv-table-headers">Quizzes</th>
                             <th className="position-sticky wbdv-table-headers">
               <span className="float-right px-5">
                 <a className="ml-2" href="#"><i className="fa fa-folder"/></a>
