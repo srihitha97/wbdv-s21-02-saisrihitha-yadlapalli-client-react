@@ -3,8 +3,11 @@ import './App.css';
 import CourseManager from "./components/course-manager";
 import {BrowserRouter, Route} from "react-router-dom";
 import HomePage from "./components/course-home"
-import QuizzesList from "./components/quizzes/quizzes-list";
-import Quiz from "./components/quizzes/quiz";
+
+
+import Quiz from "./components/quizzes/quiz"
+import Quizzes from "./components/quizzes/quizzes"
+import QuizAttempts from "./components/quizzes/quiz-attempts";
 
 function App() {
   return (
@@ -17,10 +20,13 @@ function App() {
             <CourseManager/>
           </Route>
             <Route path="/courses/:courseId/quizzes" exact={true}>
-                <QuizzesList/>
+                <Quizzes/>
             </Route>
             <Route path="/courses/:courseId/quizzes/:quizId" exact={true}>
                 <Quiz/>
+            </Route>
+            <Route path='/courses/:courseId/quizzes/:quizId/attempts' exact={true}>
+                <QuizAttempts/>
             </Route>
         </div>
       </BrowserRouter>
