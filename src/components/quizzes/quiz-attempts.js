@@ -12,7 +12,7 @@ const QuizAttempts = () => {
     return (
         <div>
             <div className='row'>
-                <h1>Attemps History</h1>
+                <h1>Attempts History</h1>
             </div>
             <table className='table'>
                 <thead>
