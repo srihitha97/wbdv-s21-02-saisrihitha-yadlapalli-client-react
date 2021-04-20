@@ -1,4 +1,4 @@
-const QUIZZES_URL = 'https://siri-node.herokuapp.com/api/quizzes';
+const QUIZZES_URL = 'http://localhost:4000/api/quizzes';
 
 export const findAllQuizzes = () =>
     fetch(QUIZZES_URL)
